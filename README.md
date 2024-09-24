@@ -1,4 +1,3 @@
-# pham-nhat-khanh-data-crawler
 # Báo cáo Tìm hiểu Crawler Data
 
 ## 1. Giới thiệu
@@ -41,7 +40,6 @@ Chương trình crawler được xây dựng theo các bước cơ bản như sa
 ```python
 import requests
 from bs4 import BeautifulSoup
-import pandas as pd
 import json
 
 def fetch_data_from_page(url):
@@ -91,25 +89,4 @@ if html_content:
 else:
     print("Không thể lấy dữ liệu từ trang web.")
 
-Để triển khai ứng dụng này bằng Docker, chúng tôi đã tạo một file Dockerfile như sau:
-
-# Triển Khai Ứng Dụng Bằng Docker
-
-## Dockerfile
-
-Chúng tôi đã tạo một file `Dockerfile` như sau:
-
-```dockerfile
-# Dockerfile
-FROM python:3.9-slim
-
-WORKDIR /app
-
-COPY requirements.txt .
-
-RUN pip install --no-cache-dir -r requirements.txt
-
-COPY . .
-
-CMD ["python", "crawler.py"]
 
