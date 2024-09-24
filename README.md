@@ -93,6 +93,13 @@ else:
 
 Để triển khai ứng dụng này bằng Docker, chúng tôi đã tạo một file Dockerfile như sau:
 
+# Triển Khai Ứng Dụng Bằng Docker
+
+## Dockerfile
+
+Chúng tôi đã tạo một file `Dockerfile` như sau:
+
+```dockerfile
 # Dockerfile
 FROM python:3.9-slim
 
@@ -105,23 +112,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 CMD ["python", "crawler.py"]
-Chúng tôi cũng sử dụng Docker Compose để dễ dàng quản lý và triển khai ứng dụng:
 
-yaml
-# docker-compose.yml
-version: '3.8'
-
-services:
-  crawler:
-    build: .
-    volumes:
-      - ./output:/app/output
-
-3.3. Chạy Ứng Dụng
-Để chạy ứng dụng với Docker, hãy sử dụng các lệnh sau:
-
-Xây dựng hình ảnh Docker:
-docker build -t data-crawler .
-
-Chạy container:
-docker run -it -v $(pwd)/output:/app/output data-crawler
