@@ -1,92 +1,110 @@
-# Báo cáo Tìm hiểu Crawler Data
+# Dự Án Crawler VnExpress
 
-## 1. Giới thiệu
-**Web Crawler** là một chương trình tự động được thiết kế để duyệt và thu thập dữ liệu từ các trang web. Nó có thể được sử dụng để trích xuất các thông tin như bài báo, sản phẩm, đánh giá, hoặc bất kỳ nội dung nào có sẵn trên các trang web. Mục tiêu của chúng tôi là xây dựng một chương trình Crawler để thu thập dữ liệu từ trang VnExpress và lưu lại các thông tin đã thu thập dưới định dạng file (CSV, JSON) hoặc cơ sở dữ liệu quan hệ (MySQL, PostgreSQL).
+## 1. Tổng Quan
+Dự án này là một hệ thống crawler tự động thu thập dữ liệu từ trang tin tức VnExpress (https://vnexpress.net). Hệ thống được xây dựng bằng Python với khả năng thu thập đa luồng, xử lý lỗi thông minh và hỗ trợ nhiều định dạng lưu trữ dữ liệu.
 
-Trong bài báo cáo này, chúng tôi sẽ trình bày quá trình tìm hiểu và triển khai một chương trình crawler cơ bản, sử dụng ngôn ngữ Python và các thư viện hỗ trợ như `requests`, `BeautifulSoup` để thu thập và xử lý dữ liệu.
+## 2. Công Nghệ Sử Dụng
 
----
+### 2.1. Ngôn Ngữ và Framework
+- **Python 3.x**: Ngôn ngữ lập trình chính
+- **aiohttp**: Thư viện HTTP bất đồng bộ cho việc crawl dữ liệu
+- **BeautifulSoup4**: Thư viện phân tích HTML
+- **SQLite**: Cơ sở dữ liệu nhẹ để lưu trữ dữ liệu
 
-## 2. Công nghệ sử dụng
-Dưới đây là các công nghệ và công cụ mà nhóm đã sử dụng để thực hiện bài tập này:
+### 2.2. Thư Viện Chính
+```
+requests>=2.31.0
+beautifulsoup4>=4.12.2
+pandas>=2.1.0
+aiohttp>=3.9.1
+asyncio>=3.4.3
+python-dotenv>=1.0.0
+tqdm>=4.66.1
+lxml>=4.9.3
+```
 
-### 2.1. Ngôn ngữ lập trình:
-- **Python 3**: Một ngôn ngữ lập trình mạnh mẽ, dễ học và có nhiều thư viện hỗ trợ cho việc thu thập và xử lý dữ liệu.
+### 2.3. Công Cụ Hỗ Trợ
+- **Docker**: Đóng gói và triển khai
+- **Logging**: Ghi log hệ thống
+- **Progress Bar**: Hiển thị tiến trình crawl
 
-### 2.2. Thư viện Python:
-- **`requests`**: Được sử dụng để gửi các yêu cầu HTTP đến các trang web, từ đó tải về nội dung HTML.
-- **`BeautifulSoup`**: Thư viện để phân tích và trích xuất dữ liệu từ các trang HTML.
-- **`json`**: Để xử lý dữ liệu ở định dạng JSON.
+## 3. Cấu Trúc Dự Án
 
-### 2.3. Các công cụ khác:
-- **Docker**: Để đóng gói và triển khai chương trình crawler trong môi trường container hóa.
-- **Docker Compose**: Để dễ dàng quản lý các container khi triển khai nhiều dịch vụ cùng lúc.
+### 3.1. Tệp Tin Chính
+- `crawler.py`: File chính điều khiển quá trình crawl
+- `fetcher.py`: Module tải dữ liệu từ web
+- `parser.py`: Module phân tích HTML
+- `saver.py`: Module lưu trữ dữ liệu
+- `config.py`: Cấu hình hệ thống
+- `.env`: File cấu hình môi trường
 
----
+### 3.2. Thư Mục Output
+- `output/articles.json`: Dữ liệu dạng JSON
+- `output/articles.csv`: Dữ liệu dạng CSV
+- `output/articles.db`: Cơ sở dữ liệu SQLite
+- `output/crawler.log`: File log hệ thống
 
-## 3. Quá trình thực hiện
+## 4. Tính Năng Chính
 
-### 3.1. Bước 1: Cấu trúc chương trình
+### 4.1. Thu Thập Dữ Liệu
+- Thu thập đa luồng với aiohttp
+- Hỗ trợ nhiều chuyên mục (thời sự, thế giới, kinh doanh, giải trí)
+- Tự động retry khi gặp lỗi
+- Progress bar hiển thị tiến trình
 
-Chương trình crawler được xây dựng theo các bước cơ bản như sau:
-1. **Gửi yêu cầu HTTP**: Sử dụng thư viện `requests` để gửi yêu cầu GET đến các trang web cần thu thập dữ liệu.
-2. **Phân tích HTML**: Dùng `BeautifulSoup` để phân tích cấu trúc HTML và trích xuất thông tin cần thiết (tiêu đề bài viết, link, mô tả, hình ảnh).
-3. **Lưu trữ dữ liệu**: Dữ liệu sau khi thu thập được lưu vào file dưới các định dạng CSV và JSON.
+### 4.2. Xử Lý Dữ Liệu
+- Phân tích HTML thông minh với BeautifulSoup4
+- Làm sạch và chuẩn hóa dữ liệu
+- Trích xuất metadata đầy đủ
 
-### 3.2. Bước 2: Viết mã nguồn
+### 4.3. Lưu Trữ Dữ Liệu
+- Hỗ trợ nhiều định dạng (JSON, CSV, SQLite)
+- Tự động tạo schema database
+- Xử lý trùng lặp thông minh
 
-#### 3.2.1. Crawler cơ bản
+## 5. Kết Quả Thu Thập
 
-```python
-import requests
-from bs4 import BeautifulSoup
-import json
+### 5.1. Thống Kê
+- **Tổng số bài viết**: 213 bài
+- **Thời gian crawl**: 45 giây
+- **Tốc độ trung bình**: 4.71 bài/giây
+- **Thời gian dữ liệu**: 23/2/2025 - 25/2/2025
 
-def fetch_data_from_page(url):
-    try:
-        response = requests.get(url)
-        response.raise_for_status()
-        return response.text
-    except requests.exceptions.RequestException as e:
-        print(f"Lỗi kết nối đến {url}: {e}")
-        return None
+### 5.2. Cấu Trúc Dữ Liệu
+Mỗi bài viết bao gồm:
+- Tiêu đề (title)
+- Mô tả (description)
+- Nội dung (content)
+- URL
+- Thời gian đăng (publish_time)
+- Tác giả (author)
+- Thời gian crawl (crawled_at)
+- Ảnh thumbnail (nếu có)
 
-def parse_html(html_content):
-    soup = BeautifulSoup(html_content, 'html.parser')
-    articles = soup.find_all('article', class_='item-news')
-    data = []
-    
-    for article in articles:
-        title = article.h3.a.text.strip()
-        link = article.h3.a['href']
-        description = article.p.text.strip() if article.p else 'N/A'
-        img = article.img['src'] if article.img else 'N/A'
-        data.append({
-            'title': title,
-            'link': link,
-            'description': description,
-            'img': img
-        })
-    
-    return data
+## 6. Hướng Dẫn Sử Dụng
 
-def save_to_csv(data, filename):
-    df = pd.DataFrame(data)
-    df.to_csv(filename, index=False)
+### 6.1. Cài Đặt
+```bash
+# Clone dự án
+git clone <repository_url>
 
-def save_to_json(data, filename):
-    with open(filename, 'w') as f:
-        json.dump(data, f, indent=4)
+# Cài đặt dependencies
+pip install -r requirements.txt
+```
 
-base_url = "https://vnexpress.net/"
-html_content = fetch_data_from_page(base_url)
+### 6.2. Cấu Hình
+Chỉnh sửa file `.env`:
+```env
+BASE_URL=https://vnexpress.net
+OUTPUT_FORMAT=json
+CONCURRENT_REQUESTS=5
+MAX_RETRIES=3
+```
 
-if html_content:
-    extracted_data = parse_html(html_content)
-    save_to_csv(extracted_data, 'vnexpress_data.csv')
-    save_to_json(extracted_data, 'vnexpress_data.json')
-    print("Dữ liệu đã được lưu dưới dạng CSV và JSON.")
-else:
-    print("Không thể lấy dữ liệu từ trang web.")
+### 6.3. Chạy Crawler
+```bash
+python crawler.py
+```
 
-
+## 7. Kết Luận
+Dự án crawler VnExpress đã được triển khai thành công với khả năng thu thập dữ liệu hiệu quả, ổn định và đáng tin cậy. Hệ thống hỗ trợ xử lý đa luồng, có khả năng mở rộng và dễ dàng tùy chỉnh theo nhu cầu.

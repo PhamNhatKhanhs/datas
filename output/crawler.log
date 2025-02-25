@@ -1,0 +1,4 @@
+2025-02-25 23:20:36,109 - INFO - Starting crawler...
+2025-02-25 23:21:43,728 - INFO - Data saved to JSON: output\articles.json
+2025-02-25 23:21:43,739 - INFO - Data saved to database: output\articles.db
+2025-02-25 23:21:43,739 - INFO - Successfully crawled 213 articles
