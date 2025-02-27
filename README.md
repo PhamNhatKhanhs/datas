@@ -62,37 +62,18 @@ lxml>=4.9.3
 - Tự động tạo schema database
 - Xử lý trùng lặp thông minh
 
-## 5. Kết Quả Thu Thập
+## 5. Hướng Dẫn Sử Dụng
 
-### 5.1. Thống Kê
-- **Tổng số bài viết**: 213 bài
-- **Thời gian crawl**: 45 giây
-- **Tốc độ trung bình**: 4.71 bài/giây
-- **Thời gian dữ liệu**: 23/2/2025 - 25/2/2025
-
-### 5.2. Cấu Trúc Dữ Liệu
-Mỗi bài viết bao gồm:
-- Tiêu đề (title)
-- Mô tả (description)
-- Nội dung (content)
-- URL
-- Thời gian đăng (publish_time)
-- Tác giả (author)
-- Thời gian crawl (crawled_at)
-- Ảnh thumbnail (nếu có)
-
-## 6. Hướng Dẫn Sử Dụng
-
-### 6.1. Cài Đặt
+### 5.1. Cài Đặt
 ```bash
 # Clone dự án
-git clone <repository_url>
+git clone https://github.com/PhamNhatKhanhs/datas.git
 
 # Cài đặt dependencies
 pip install -r requirements.txt
 ```
 
-### 6.2. Cấu Hình
+### 5.2. Cấu Hình
 Chỉnh sửa file `.env`:
 ```env
 BASE_URL=https://vnexpress.net
@@ -101,10 +82,13 @@ CONCURRENT_REQUESTS=5
 MAX_RETRIES=3
 ```
 
-### 6.3. Chạy Crawler
+### 5.3. Chạy Crawler
 ```bash
 python crawler.py
 ```
 
-## 7. Kết Luận
-Dự án crawler VnExpress đã được triển khai thành công với khả năng thu thập dữ liệu hiệu quả, ổn định và đáng tin cậy. Hệ thống hỗ trợ xử lý đa luồng, có khả năng mở rộng và dễ dàng tùy chỉnh theo nhu cầu.
+## 6. Đóng Góp
+Mọi đóng góp và góp ý đều được hoan nghênh. Vui lòng tạo issue hoặc pull request tại [GitHub repository](https://github.com/PhamNhatKhanhs/datas).
+
+## 7. Giấy Phép
+Dự án này được phân phối dưới giấy phép MIT. Xem file `LICENSE` để biết thêm chi tiết.

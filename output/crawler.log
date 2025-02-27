@@ -2,3 +2,7 @@
 2025-02-25 23:21:43,728 - INFO - Data saved to JSON: output\articles.json
 2025-02-25 23:21:43,739 - INFO - Data saved to database: output\articles.db
 2025-02-25 23:21:43,739 - INFO - Successfully crawled 213 articles
+2025-02-27 15:38:12,063 - INFO - Starting crawler...
+2025-02-27 15:39:20,899 - INFO - Data saved to JSON: output\articles.json
+2025-02-27 15:39:20,923 - INFO - Data saved to database: output\articles.db
+2025-02-27 15:39:20,923 - INFO - Successfully crawled 215 articles
