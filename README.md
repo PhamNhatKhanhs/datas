@@ -1,7 +1,23 @@
 # Dự Án Crawler VnExpress
 
 ## 1. Tổng Quan
-Dự án này là một hệ thống crawler tự động thu thập dữ liệu từ trang tin tức VnExpress (https://vnexpress.net). Hệ thống được xây dựng bằng Python với khả năng thu thập đa luồng, xử lý lỗi thông minh và hỗ trợ nhiều định dạng lưu trữ dữ liệu.
+
+### 1.1. Giới Thiệu về VnExpress
+VnExpress là một trong những trang báo điện tử hàng đầu tại Việt Nam, được thành lập vào năm 2001 bởi FPT Group. Với hơn 20 năm hoạt động, VnExpress đã trở thành nguồn thông tin tin cậy với:
+
+- **Độc giả**: Hơn 40 triệu lượt truy cập hàng tháng
+- **Nội dung**: Cập nhật 24/7 với hơn 1,000 tin bài mỗi ngày
+- **Chuyên mục**: Đa dạng từ thời sự, kinh doanh, thế giới đến giải trí, thể thao
+- **Chất lượng**: Thông tin chính thống, được kiểm chứng kỹ lưỡng
+- **Tương tác**: Hệ thống bình luận sôi nổi với hàng triệu người dùng
+
+### 1.2. Tổng Quan Dự Án
+Dự án này là một hệ thống crawler tự động thu thập dữ liệu từ trang tin tức VnExpress (https://vnexpress.net). Hệ thống được xây dựng bằng Python với khả năng thu thập đa luồng, xử lý lỗi thông minh và hỗ trợ nhiều định dạng lưu trữ dữ liệu. Dữ liệu thu thập được có thể sử dụng cho nhiều mục đích như:
+
+- Phân tích xu hướng tin tức
+- Nghiên cứu dư luận xã hội
+- Xây dựng bộ dữ liệu cho AI/ML
+- Theo dõi thông tin thị trường
 
 ## 2. Công Nghệ Sử Dụng
 
