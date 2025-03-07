@@ -5,7 +5,7 @@ from typing import List, Optional
 import config
 
 async def fetch_with_retry(url: str, session: aiohttp.ClientSession, max_retries: int = config.MAX_RETRIES) -> Optional[str]:
-    """Fetch URL content with retry mechanism."""
+    """Tải nội dung URL với cơ chế thử lại."""
     headers = {'User-Agent': config.USER_AGENT}  # Set custom User-Agent to mimic a browser
     
     for attempt in range(max_retries):  # Retry up to max_retries times
@@ -26,7 +26,7 @@ async def fetch_with_retry(url: str, session: aiohttp.ClientSession, max_retries
     return None  # Return None if all attempts fail
 
 async def fetch_home_page(base_url: str) -> List[str]:
-    """Fetch VnExpress home page and category pages."""
+    """Tải trang chủ và các trang chuyên mục của VnExpress."""
     async with aiohttp.ClientSession() as session:  # Create an HTTP session for efficient connection reuse
         # Fetch main home page
         content = await fetch_with_retry(base_url, session)
@@ -46,5 +46,5 @@ async def fetch_home_page(base_url: str) -> List[str]:
         return pages  # Return list of fetched pages
 
 async def fetch_article_details(url: str, session: aiohttp.ClientSession) -> Optional[str]:
-    """Fetch full article content from the given URL."""
+    """Tải nội dung đầy đủ của bài viết từ URL đã cho."""
     return await fetch_with_retry(url, session)  # Reuse fetch_with_retry function to get article content

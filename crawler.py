@@ -5,49 +5,49 @@ from pathlib import Path
 from tqdm import tqdm
 import aiohttp
 
-# Import necessary functions from other modules
+# Nhập các hàm cần thiết từ các module khác
 from fetcher import fetch_home_page, fetch_article_details
 from parser import parse_titles, parse_article
 from saver import save_to_csv, save_to_json, save_to_database
 import config
 
-# Set up logging configuration
+# Thiết lập cấu hình logging
 logging.basicConfig(
-    level=logging.INFO,  # Set log level to INFO
-    format='%(asctime)s - %(levelname)s - %(message)s',  # Define log format
+    level=logging.INFO,  # Đặt mức độ log là INFO
+    format='%(asctime)s - %(levelname)s - %(message)s',  # Định dạng log
     handlers=[
-        logging.FileHandler(Path(config.OUTPUT_DIR) / 'crawler.log'),  # Save logs to a file
-        logging.StreamHandler()  # Display logs in the console
+        logging.FileHandler(Path(config.OUTPUT_DIR) / 'crawler.log'),  # Lưu log vào file
+        logging.StreamHandler()  # Hiển thị log trên console
     ]
 )
 
 async def process_article(url, session):
     """
-    Process a single article by fetching its content and extracting relevant data.
+    Xử lý một bài viết bằng cách tải nội dung và trích xuất dữ liệu liên quan.
     
-    Args:
-        url (str): The URL of the article.
-        session (aiohttp.ClientSession): The HTTP session for sending requests.
+    Tham số:
+        url (str): URL của bài viết.
+        session (aiohttp.ClientSession): Phiên HTTP để gửi yêu cầu.
     
-    Returns:
-        dict or None: A dictionary containing article details if successful, otherwise None.
+    Trả về:
+        dict hoặc None: Một từ điển chứa chi tiết bài viết nếu thành công, ngược lại là None.
     """
     try:
-        content = await fetch_article_details(url, session)  # Fetch article content
+        content = await fetch_article_details(url, session)  # Tải nội dung bài viết
         if content:
-            article_data = parse_article(content)  # Parse article content to extract data
-            article_data['url'] = url  # Store the article's URL
-            article_data['crawled_at'] = datetime.now().isoformat()  # Store the crawl timestamp
-            return article_data  # Return extracted article data
+            article_data = parse_article(content)  # Phân tích nội dung bài viết để trích xuất dữ liệu
+            article_data['url'] = url  # Lưu URL của bài viết
+            article_data['crawled_at'] = datetime.now().isoformat()  # Lưu thời điểm thu thập
+            return article_data  # Trả về dữ liệu bài viết đã trích xuất
     except Exception as e:
-        logging.error(f"Error processing article {url}: {str(e)}")  # Log the error if processing fails
-    return None  # Return None if processing fails
+        logging.error(f"Lỗi khi xử lý bài viết {url}: {str(e)}")  # Ghi log lỗi nếu xử lý thất bại
+    return None  # Trả về None nếu xử lý thất bại
 
 async def main():
     """
-    The main function for running the web crawler.
+    Hàm chính để chạy trình thu thập dữ liệu web.
     
-    - Fetches the homepage and category pages.
+    - Tải trang chủ và các trang chuyên mục.
     - Extracts article titles and URLs.
     - Processes articles concurrently using asyncio.
     - Saves extracted data in CSV, JSON, and database formats.

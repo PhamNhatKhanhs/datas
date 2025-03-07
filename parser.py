@@ -4,50 +4,50 @@ from typing import List, Dict, Optional
 import re
 
 def clean_text(text: str) -> str:
-    """Clean and normalize text content by removing extra spaces."""
+    """Làm sạch và chuẩn hóa nội dung văn bản bằng cách loại bỏ khoảng trắng thừa."""
     if not text:
-        return ""  # Return empty string if text is None or empty
-    text = re.sub(r'\s+', ' ', text)  # Replace multiple spaces with a single space
-    return text.strip()  # Remove leading and trailing spaces
+        return ""  # Trả về chuỗi rỗng nếu text là None hoặc rỗng
+    text = re.sub(r'\s+', ' ', text)  # Thay thế nhiều khoảng trắng bằng một khoảng trắng
+    return text.strip()  # Xóa khoảng trắng ở đầu và cuối chuỗi
 
 def parse_titles(html: str) -> List[Dict]:
-    """Parse article titles and metadata from HTML content."""
+    """Phân tích các tiêu đề bài viết và metadata từ nội dung HTML."""
     if not html:
-        return []  # Return an empty list if HTML is empty
+        return []  # Trả về danh sách rỗng nếu HTML rỗng
     
-    soup = BeautifulSoup(html, 'lxml')  # Parse the HTML content with lxml parser
-    articles = []  # List to store extracted articles
+    soup = BeautifulSoup(html, 'lxml')  # Phân tích nội dung HTML với trình phân tích lxml
+    articles = []  # Danh sách để lưu các bài viết đã trích xuất
     
-    # Find all article elements that contain news items
+    # Tìm tất cả các phần tử bài viết chứa tin tức
     for article in soup.find_all(['article', 'div'], class_=['item-news', 'article-item']):
         try:
-            # Find the title tag (h1, h2, h3)
+            # Tìm thẻ tiêu đề (h1, h2, h3)
             title_tag = article.find(['h3', 'h2', 'h1'])
             if not title_tag:
-                continue  # Skip if no title found
+                continue  # Bỏ qua nếu không tìm thấy tiêu đề
                 
-            # Find the link inside the title tag
+            # Tìm liên kết trong thẻ tiêu đề
             link_tag = title_tag.find('a')
             if not link_tag:
-                continue  # Skip if no link found
+                continue  # Bỏ qua nếu không tìm thấy liên kết
                 
-            # Extract title text and URL
-            title = clean_text(link_tag.get_text())  # Clean extracted title
-            url = link_tag.get('href', '')  # Extract URL
+            # Trích xuất văn bản tiêu đề và URL
+            title = clean_text(link_tag.get_text())  # Làm sạch tiêu đề đã trích xuất
+            url = link_tag.get('href', '')  # Trích xuất URL
             if not (title and url):
-                continue  # Skip if title or URL is missing
+                continue  # Bỏ qua nếu thiếu tiêu đề hoặc URL
             
-            # Extract article description
+            # Trích xuất mô tả bài viết
             description = ""
             desc_tag = article.find(['p', 'div'], class_=['description', 'lead'])
             if desc_tag:
-                description = clean_text(desc_tag.get_text())  # Clean extracted description
+                description = clean_text(desc_tag.get_text())  # Làm sạch mô tả đã trích xuất
             
-            # Extract thumbnail image URL
+            # Trích xuất URL ảnh thumbnail
             thumbnail = ""
             img_tag = article.find('img')
             if img_tag:
-                # Get the image source (src) or fallback to data-src if available
+                # Lấy nguồn ảnh (src) hoặc sử dụng data-src nếu có
                 thumbnail = img_tag.get('src', img_tag.get('data-src', ''))
             
             # Store extracted article details in a dictionary

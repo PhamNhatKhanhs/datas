@@ -1,10 +1,10 @@
 import os
 from dotenv import load_dotenv
 
-# Load environment variables
+# Tải các biến môi trường
 load_dotenv()
 
-# Base configuration
+# Cấu hình cơ bản
 BASE_URL = os.getenv('BASE_URL', 'https://vnexpress.net')
 OUTPUT_FORMAT = os.getenv('OUTPUT_FORMAT', 'json')
 CONCURRENT_REQUESTS = int(os.getenv('CONCURRENT_REQUESTS', 5))
@@ -14,5 +14,5 @@ USER_AGENT = os.getenv('USER_AGENT')
 OUTPUT_DIR = os.getenv('OUTPUT_DIR', 'output')
 DATABASE_URL = os.getenv('DATABASE_URL', 'sqlite:///output/articles.db')
 
-# Ensure output directory exists
+# Đảm bảo thư mục đầu ra tồn tại
 os.makedirs(OUTPUT_DIR, exist_ok=True)
